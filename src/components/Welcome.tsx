@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import theme from '../theme';
+import theme from '../../theme';
 
 export default function Welcome() {
   return (

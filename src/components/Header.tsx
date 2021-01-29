@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, View, StyleSheet} from 'react-native';
-import Annanas from '../assets/images/lets-go.png';
-import theme from '../theme';
+import Annanas from '../../assets/images/lets-go.png';
+import theme from '../../theme';
 
 export default function Header() {
   return (
