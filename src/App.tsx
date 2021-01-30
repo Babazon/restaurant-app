@@ -13,6 +13,7 @@ import { Application } from './state/Application.model';
 import { reduceApplicationsIntoRestaurants } from './util/reduceApplicationsIntoRestaurants';
 import theme from '../theme';
 import Page from './components/Page';
+import { ApplicationSwiper } from './components/ApplicationSwiper';
 
 
 /*
@@ -75,7 +76,7 @@ class App extends React.Component<{}, Partial<IAppState>> {
          			 }
 								}}/>
 							<RestaurantStack.Screen name="ApplicationList"
-							component={ApplicationList}
+							component={ApplicationSwiper}
 							options={{
 								title: this.state?.selectedRestaurant?.label,
 								headerStyle: {
@@ -84,7 +85,8 @@ class App extends React.Component<{}, Partial<IAppState>> {
 								headerTintColor: '#fff',
 								headerTitleStyle: {
           			  fontWeight: 'bold',
-         			 }
+								},
+								gestureEnabled: false
 							}}/>
 						</RestaurantStack.Navigator>
 				</NavigationContainer>

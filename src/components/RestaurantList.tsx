@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { FlatList, TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import theme from '../../theme';
 import MyContext from '../state/Context';
 import { Restaurant } from '../state/Restaurant.model';
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   text: {
     ...theme.typography.body,
 		textAlign: 'left',
-		color: 'red'
+		color: 'white'
   },
   annanasText: {color: theme.palette.pineapple, textAlign: 'center'},
   cucumberText: {color: theme.palette.cucumber},
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		backgroundColor: 'whitesmoke',
+		backgroundColor: theme.palette.pineapple,
 		borderColor: 'gray',
 		borderStyle: 'solid',
 		borderWidth: StyleSheet.hairlineWidth,
