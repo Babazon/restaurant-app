@@ -23,6 +23,10 @@ export const RestaurantList = (props: {navigation: any}) => {
 									props.navigation.navigate('ApplicationList');
 								}}
 								style={{
+									height: 100,
+									flexDirection: 'row',
+									justifyContent: 'space-between',
+									alignItems: 'center',
 									backgroundColor: 'whitesmoke',
 									borderColor: 'gray',
 									borderStyle: 'solid',
@@ -30,7 +34,10 @@ export const RestaurantList = (props: {navigation: any}) => {
 									margin: 2,
 									padding: 2
 								}}>
+									<>
 								<Text style={styles.text}>Restaurant: {item.label}</Text>
+								<Text style={{fontWeight: 'bold', textAlign: 'right', fontSize: 50}}>{'>'}</Text>
+								</>
 							</TouchableHighlight>
 						)}
 					data={restaurants}
@@ -42,14 +49,13 @@ export const RestaurantList = (props: {navigation: any}) => {
 const styles = StyleSheet.create({
   wrapper: {
 		flex:1,
-		padding: theme.spacing.base,
 		justifyContent: 'flex-start',
 		alignItems: 'stretch',
 		backgroundColor: theme.palette.cucumber
   },
   text: {
     ...theme.typography.body,
-		textAlign: 'center',
+		textAlign: 'left',
 		color: 'red'
   },
   annanasText: {color: theme.palette.pineapple, textAlign: 'center'},

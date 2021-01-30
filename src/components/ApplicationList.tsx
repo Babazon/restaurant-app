@@ -15,13 +15,18 @@ export const ApplicationList = (props: {navigation: any})=>  {
 						renderItem={({item}: {item:Application})=> (
 						<TouchableOpacity
 							style={{
-								height: 50,
-								backgroundColor: item.viewed ? 'gray': 'green',
+								height: 100,
+								flexDirection: 'row',
+								justifyContent: 'space-between',
+								alignItems: 'center',
+								backgroundColor: 'whitesmoke',
 								borderColor: 'gray',
 								borderStyle: 'solid',
 								borderWidth: StyleSheet.hairlineWidth,
 								margin: 2,
-								padding: 2
+								padding: 2,
+								flexWrap: 'nowrap',
+								paddingHorizontal: 4
 							}}
 							onPress={()=>{
 								selectApplication && selectApplication(item);
@@ -29,7 +34,10 @@ export const ApplicationList = (props: {navigation: any})=>  {
 								props.navigation.navigate('ApplicationDetail');
 							}}
 						>
-							<Text style={styles.text}>Application id {item.id}</Text>
+							<>
+							<Text style={StyleSheet.flatten([styles.text, {flex: 4}])}>Application id {item.id}</Text>
+							<Text style={{fontWeight: 'bold', textAlign: 'right', fontSize: 50, flex: 1}}>{'>'}</Text>
+							</>
 						</TouchableOpacity>
 						)}
 						data={selectedRestaurant.applications}
@@ -42,7 +50,6 @@ export const ApplicationList = (props: {navigation: any})=>  {
 const styles = StyleSheet.create({
   wrapper: {
 		flex:1,
-		padding: theme.spacing.base,
 		backgroundColor: theme.palette.cucumber
   },
   text: {

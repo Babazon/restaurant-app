@@ -5,7 +5,6 @@ import MyContext from '../state/Context';
 
 export const ApplicationDetail = ()=>  {
 	const {selectedApplication} = useContext(MyContext);
-
   return (
     <View style={styles.wrapper}>
       <Text style={styles.text}>
@@ -22,7 +21,6 @@ export const ApplicationDetail = ()=>  {
 const styles = StyleSheet.create({
   wrapper: {
 		flex:1,
-		padding: theme.spacing.base,
 		backgroundColor: theme.palette.cucumber
   },
   text: {

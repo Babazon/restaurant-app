@@ -29,6 +29,7 @@ Todo List
 	10. Implement Communications library for emailing, or making a phone call to the applicants
 	11. Implement http/socket communication for setting applications as viewed, accepted, rejected
 	12. If it gets too big, add redux, or mobx (yuck!) for improved state management. Context is for simple apps
+	13. Create own ListItem and List renderers, and Card for application detail
 */
 
 const RestaurantStack = createStackNavigator();
