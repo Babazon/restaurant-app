@@ -1,10 +1,10 @@
-import CardStack, { Card } from 'react-native-card-stack-swiper';
-import React, { useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import MyContext from '../state/Context';
-import { Alert,  Dimensions,  StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useContext } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import CardStack, { Card } from 'react-native-card-stack-swiper';
 import theme from '../../theme';
 import { Application } from '../state/Application.model';
+import MyContext from '../state/Context';
 
 export const ApplicationSwiper = () => {
 	let swiperRef: CardStack|null= null;
@@ -19,10 +19,10 @@ export const ApplicationSwiper = () => {
 				loop
 				renderNoMoreCards={() => <Text style={{ fontWeight: '700', fontSize: 18, color: 'gray' }}>No more applications</Text>}
 				ref={swiper => { swiperRef = swiper}}
-				onSwipedRight={(cardIndex: number) => Alert.alert('Hire?', `We will notify ${selectedRestaurant.applications[cardIndex].firstname} that he has been "liked"!`)}
+				onSwipedRight={(_: number) => {/* Save Applicant */}}
 				onSwipedLeft={(cardIndex: number) => toggleApplicationAsViewed && toggleApplicationAsViewed(selectedRestaurant.applications[cardIndex])}
 			>
-				{selectedRestaurant.applications.map((application: Application, cardIndex: number)=> (
+				{selectedRestaurant.applications.map((application: Application, _: number)=> (
 					<Card style={styles.card} key={application.id}>
 					<TouchableOpacity
 						onPress={()=>{
@@ -30,7 +30,7 @@ export const ApplicationSwiper = () => {
 							toggleApplicationAsViewed && toggleApplicationAsViewed(application);
 							navigation.navigate('ApplicationDetail');
 						}}>
-								<Text style={{fontSize: 300, textAlign: 'center'}}>👩🏻‍🍳</Text>
+								<Text style={{fontSize: 300, textAlign: 'center'}}>{['👩🏻‍🍳','🧑🏾‍🍳','👨🏻‍🍳','👩🏿‍🍳','🧑‍🍳','👨🏿‍🍳','🧑🏼‍🎤','🧕🏻', '👩🏻‍🦳', '👩🏻‍🦰'][Math.floor(Math.random()*10)]}</Text>
 								<Text style={styles.label}>{application.firstname} {application.lastname}</Text>
 							</TouchableOpacity>
 					</Card>

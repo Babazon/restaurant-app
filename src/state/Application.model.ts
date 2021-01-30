@@ -7,7 +7,7 @@ export class Application {
 	id: string
 	event_id: string
 	event_type: string // enum,
-	restaurant: Restaurant
+	restaurant: Restaurant // circular but ok for now
 	form_response: FormResponse
 }
 

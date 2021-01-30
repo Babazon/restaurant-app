@@ -3,17 +3,15 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { StatusBar } from 'react-native';
 import 'react-native-gesture-handler';
-import { ApplicationDetail } from './components/ApplicationDetail';
-import { ApplicationList } from './components/ApplicationList';
-import { RestaurantList } from './components/RestaurantList';
-import MyContext, { IAppState, initialAppState } from './state/Context';
 import dummyData from '../dummyData/applications.json';
-import { Restaurant } from './state/Restaurant.model';
-import { Application } from './state/Application.model';
-import { reduceApplicationsIntoRestaurants } from './util/reduceApplicationsIntoRestaurants';
 import theme from '../theme';
-import Page from './components/Page';
+import { ApplicationDetail } from './components/ApplicationDetail';
 import { ApplicationSwiper } from './components/ApplicationSwiper';
+import { RestaurantList } from './components/RestaurantList';
+import { Application } from './state/Application.model';
+import MyContext, { IAppState, initialAppState } from './state/Context';
+import { Restaurant } from './state/Restaurant.model';
+import { reduceApplicationsIntoRestaurants } from './util/reduceApplicationsIntoRestaurants';
 
 
 /*
@@ -78,7 +76,7 @@ class App extends React.Component<{}, Partial<IAppState>> {
 							<RestaurantStack.Screen name="ApplicationList"
 							component={ApplicationSwiper}
 							options={{
-								title: this.state?.selectedRestaurant?.label,
+								title: `${this.state?.selectedRestaurant?.label} Applicants`,
 								headerStyle: {
            			 backgroundColor: theme.palette.pineapple,
         			  },
