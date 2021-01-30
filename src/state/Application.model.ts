@@ -1,6 +1,8 @@
 import { Restaurant } from "./Restaurant.model";
 
 export class Application {
+	firstname?: string
+	lastname?: string
 	viewed: boolean = false
 	id: string
 	event_id: string

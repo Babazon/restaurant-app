@@ -50,7 +50,7 @@ class App extends React.Component<{}, Partial<IAppState>> {
 						<StatusBar barStyle="dark-content" />
 						<RestaurantStack.Navigator initialRouteName="RestaurantList">
 							<RestaurantStack.Screen name="RestaurantList" component={RestaurantList} options={{ title: 'Restaurants' }} />
-							<RestaurantStack.Screen name="ApplicationDetail" component={ApplicationDetail} options={{title: this.state?.selectedApplication?.form_response?.definition?.title}}/>
+							<RestaurantStack.Screen name="ApplicationDetail" component={ApplicationDetail} options={{title: `${this.state?.selectedApplication?.firstname} ${this.state?.selectedApplication?.lastname}`}}/>
 							<RestaurantStack.Screen name="ApplicationList" component={ApplicationList} options={{title: this.state?.selectedRestaurant?.label}}/>
 						</RestaurantStack.Navigator>
 				</NavigationContainer>
