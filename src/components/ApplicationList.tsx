@@ -16,19 +16,7 @@ export const ApplicationList = ()=>  {
 						keyExtractor={(restaurant: {id:string}) => restaurant.id}
 						renderItem={({item}: {item:Application})=> (
 						<TouchableOpacity
-							style={{
-								height: 100,
-								flexDirection: 'row',
-								justifyContent: 'space-between',
-								alignItems: 'center',
-								backgroundColor: item.viewed ? 'lightgray': 'green',
-								borderColor: 'gray',
-								borderStyle: 'solid',
-								borderWidth: StyleSheet.hairlineWidth,
-								margin: 2,
-								padding: 4,
-								flexWrap: 'nowrap',
-							}}
+							style={StyleSheet.flatten([styles.listItem, {	backgroundColor: item.viewed ? 'lightgray': 'green',}])}
 							onPress={()=>{
 								selectApplication && selectApplication(item);
 								toggleApplicationAsViewed && toggleApplicationAsViewed(item);
@@ -61,5 +49,17 @@ const styles = StyleSheet.create({
   cucumberText: {color: theme.palette.cucumber},
   myPineappleIsBiggerThanYours: {
     fontSize: 80,
-  },
+	},
+	listItem: {
+		height: 100,
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		borderColor: 'gray',
+		borderStyle: 'solid',
+		borderWidth: StyleSheet.hairlineWidth,
+		margin: 2,
+		padding: 4,
+		flexWrap: 'nowrap',
+	}
 });

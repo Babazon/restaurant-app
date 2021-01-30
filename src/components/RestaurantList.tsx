@@ -23,18 +23,7 @@ export const RestaurantList = () => {
 									selectRestaurant!(item);
 									navigation.navigate('ApplicationList');
 								}}
-								style={{
-									height: 100,
-									flexDirection: 'row',
-									justifyContent: 'space-between',
-									alignItems: 'center',
-									backgroundColor: 'whitesmoke',
-									borderColor: 'gray',
-									borderStyle: 'solid',
-									borderWidth: StyleSheet.hairlineWidth,
-									margin: 2,
-									padding: 4
-								}}>
+								style={styles.listItem}>
 									<>
 								<Text style={styles.text}>Restaurant: {item.label}</Text>
 								<Text style={{fontWeight: 'bold', textAlign: 'right', fontSize: 50}}>{'>'}</Text>
@@ -63,5 +52,17 @@ const styles = StyleSheet.create({
   cucumberText: {color: theme.palette.cucumber},
   myPineappleIsBiggerThanYours: {
     fontSize: 80,
-  },
+	},
+	listItem: {
+		height: 100,
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		backgroundColor: 'whitesmoke',
+		borderColor: 'gray',
+		borderStyle: 'solid',
+		borderWidth: StyleSheet.hairlineWidth,
+		margin: 2,
+		padding: 4
+	}
 });
