@@ -24,10 +24,7 @@ export const RestaurantList = () => {
 									navigation.navigate('ApplicationList');
 								}}
 								style={styles.listItem}>
-									<>
-								<Text style={styles.text}>Restaurant: {item.label}</Text>
-								<Text style={{fontWeight: 'bold', textAlign: 'right', fontSize: 50}}>{'>'}</Text>
-								</>
+								<Text numberOfLines={1} style={styles.text}>{item.label}</Text>
 							</TouchableOpacity>
 						)}
 					data={restaurants}
@@ -45,8 +42,11 @@ const styles = StyleSheet.create({
   },
   text: {
     ...theme.typography.body,
-		textAlign: 'left',
-		color: 'white'
+		textAlign: 'center',
+		color: 'white',
+		alignSelf: 'center',
+		fontSize: 50,
+		marginHorizontal: 8
   },
   annanasText: {color: theme.palette.pineapple, textAlign: 'center'},
   cucumberText: {color: theme.palette.cucumber},
@@ -55,8 +55,9 @@ const styles = StyleSheet.create({
 	},
 	listItem: {
 		height: 100,
+		flexWrap: 'nowrap',
 		flexDirection: 'row',
-		justifyContent: 'space-between',
+		justifyContent: 'center',
 		alignItems: 'center',
 		backgroundColor: theme.palette.pineapple,
 		borderColor: 'gray',

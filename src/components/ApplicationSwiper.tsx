@@ -31,7 +31,7 @@ export const ApplicationSwiper = () => {
 							navigation.navigate('ApplicationDetail');
 						}}>
 								<Text style={{fontSize: 300, textAlign: 'center'}}>{['👩🏻‍🍳','🧑🏾‍🍳','👨🏻‍🍳','👩🏿‍🍳','🧑‍🍳','👨🏿‍🍳','🧑🏼‍🎤','🧕🏻', '👩🏻‍🦳', '👩🏻‍🦰'][Math.floor(Math.random()*10)]}</Text>
-								<Text style={styles.label}>{application.firstname} {application.lastname}</Text>
+								<Text numberOfLines={1} lineBreakMode="tail" style={styles.label}>{application.firstname} {application.lastname}</Text>
 							</TouchableOpacity>
 					</Card>
 				))}
