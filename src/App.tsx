@@ -57,7 +57,6 @@ class App extends React.Component<{}, Partial<IAppState>> {
 			</MyContext.Provider>
   	);
 	}
-
 };
 
 export default App;

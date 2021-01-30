@@ -7,8 +7,8 @@ export  const reduceApplicationsIntoRestaurants = (apps: Application[]): Restaur
 		if(!restaurants[currentApplication.restaurant.id]) {
 			restaurants[currentApplication.restaurant.id] = {id: currentApplication.restaurant.id, label: currentApplication.restaurant.label, applications: []};
 		}
-			currentApplication.firstname = currentApplication.form_response.answers.filter((answer)=> answer.field.ref === 'application_firstname')[0].text;
-			currentApplication.lastname = currentApplication.form_response.answers.filter((answer)=> answer.field.ref === 'application_lastname')[0].text;
+			currentApplication.firstname = currentApplication.form_response.answers.find((answer)=> answer.field.ref === 'application_firstname')?.text;
+			currentApplication.lastname = currentApplication.form_response.answers.find((answer)=> answer.field.ref === 'application_lastname')?.text;
 			restaurants[currentApplication.restaurant.id].applications.push(currentApplication);
 	});
 	return Object.values(restaurants);
