@@ -44,7 +44,8 @@ const styles = StyleSheet.create({
 		flex:1,
 		padding: theme.spacing.base,
 		justifyContent: 'flex-start',
-		alignItems: 'stretch'
+		alignItems: 'stretch',
+		backgroundColor: theme.palette.cucumber
   },
   text: {
     ...theme.typography.body,

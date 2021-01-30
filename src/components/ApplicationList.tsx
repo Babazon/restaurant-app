@@ -42,7 +42,8 @@ export const ApplicationList = (props: {navigation: any})=>  {
 const styles = StyleSheet.create({
   wrapper: {
 		flex:1,
-    padding: theme.spacing.base,
+		padding: theme.spacing.base,
+		backgroundColor: theme.palette.cucumber
   },
   text: {
     ...theme.typography.body,

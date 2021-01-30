@@ -11,15 +11,24 @@ import dummyData from '../dummyData/applications.json';
 import { Restaurant } from './state/Restaurant.model';
 import { Application } from './state/Application.model';
 import { reduceApplicationsIntoRestaurants } from './util/reduceApplicationsIntoRestaurants';
-
+import theme from '../theme';
+import Page from './components/Page';
 
 
 /*
-0. Get data from json/api.
-1. Reduce applications into a list of restaurants (with applications/applicants)
-2. Select restaurant from list and navigate to it , render applications
-3. Select, unselect application
-4. Select application to view details
+Todo List
+	1. Implement real ajax/socket calls to update the state
+	2. Type strings that should be enums for autocompletion and type safety
+	3. Type route names and other strings for type safety
+	4. Implement localisation for Danish, Swedish, English, Norwegian based on phone language
+	5. Add jest unit tests for utility functions
+	6. Implement husky for precommit hooks
+	7. Set up pipeline for deploying, distributing on Appcenter, Bitrise etc.
+	8. Style the app and pimp it, placeholders for photos, basically business card for applicant details
+	9. Add mock login screen
+	10. Implement Communications library for emailing, or making a phone call to the applicants
+	11. Implement http/socket communication for setting applications as viewed, accepted, rejected
+	12. If it gets too big, add redux, or mobx (yuck!) for improved state management. Context is for simple apps
 */
 
 const RestaurantStack = createStackNavigator();
@@ -32,26 +41,50 @@ class App extends React.Component<{}, Partial<IAppState>> {
 			<MyContext.Provider
 				value={{
 					...this.state,
-					selectApplication: (selectedApplication?: Application)=>{
-						this.setState({selectedApplication})
-					},
-					selectRestaurant: (selectedRestaurant?: Restaurant)=>{
-						this.setState({selectedRestaurant})
-					},
-					loadRestaurants: () => {
-						this.setState({restaurants: reduceApplicationsIntoRestaurants(dummyData as Application[])})
-					},
-					toggleApplicationAsViewed: (application: Application) => {
-						application.viewed = true;
-					}
+					selectApplication: (selectedApplication?: Application)=>this.setState({selectedApplication}),
+					selectRestaurant: (selectedRestaurant?: Restaurant)=>	this.setState({selectedRestaurant}),
+					loadRestaurants: () => 	this.setState({restaurants: reduceApplicationsIntoRestaurants(dummyData as Application[])}),
+					toggleApplicationAsViewed: (application: Application) => application.viewed = true,
 				}}
 			>
 				<NavigationContainer>
 						<StatusBar barStyle="dark-content" />
 						<RestaurantStack.Navigator initialRouteName="RestaurantList">
-							<RestaurantStack.Screen name="RestaurantList" component={RestaurantList} options={{ title: 'Restaurants' }} />
-							<RestaurantStack.Screen name="ApplicationDetail" component={ApplicationDetail} options={{title: `${this.state?.selectedApplication?.firstname} ${this.state?.selectedApplication?.lastname}`}}/>
-							<RestaurantStack.Screen name="ApplicationList" component={ApplicationList} options={{title: this.state?.selectedRestaurant?.label}}/>
+							<RestaurantStack.Screen name="RestaurantList"
+							 component={RestaurantList}
+							 options={{
+								title: 'Restaurants',
+							 	headerStyle: {
+           			 backgroundColor: theme.palette.pineapple,
+        			  },
+								headerTintColor: '#fff',
+								headerTitleStyle: {
+          			  fontWeight: 'bold',
+         			 }}} />
+							<RestaurantStack.Screen name="ApplicationDetail"
+							component={ApplicationDetail}
+							options={{
+								title: `${this.state?.selectedApplication?.firstname} ${this.state?.selectedApplication?.lastname}`,
+								headerStyle: {
+           			 backgroundColor: theme.palette.pineapple,
+        			  },
+								headerTintColor: '#fff',
+								headerTitleStyle: {
+          			  fontWeight: 'bold',
+         			 }
+								}}/>
+							<RestaurantStack.Screen name="ApplicationList"
+							component={ApplicationList}
+							options={{
+								title: this.state?.selectedRestaurant?.label,
+								headerStyle: {
+           			 backgroundColor: theme.palette.pineapple,
+        			  },
+								headerTintColor: '#fff',
+								headerTitleStyle: {
+          			  fontWeight: 'bold',
+         			 }
+							}}/>
 						</RestaurantStack.Navigator>
 				</NavigationContainer>
 			</MyContext.Provider>
