@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import theme from '../../theme';
+import MyContext from '../state/Context';
 
-export default function Detail() {
+export const ApplicationDetail = ()=>  {
+	const {selectedApplication} = useContext(MyContext);
+
   return (
     <View style={styles.wrapper}>
       <Text style={styles.text}>
-        <Text style={styles.annanasText}>Detail View </Text>
+				{selectedApplication != null &&
+					<>
+						<Text>Application id: {selectedApplication.id}</Text>
+					</>
+				}
       </Text>
     </View>
   );
@@ -14,6 +21,7 @@ export default function Detail() {
 
 const styles = StyleSheet.create({
   wrapper: {
+		flex:1,
     padding: theme.spacing.base,
   },
   text: {

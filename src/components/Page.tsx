@@ -1,10 +1,10 @@
 import React, {ReactNode} from 'react';
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {SafeAreaView, StyleSheet, View} from 'react-native';
 
 export default function Page({children}: {children: ReactNode}) {
   return (
 		<SafeAreaView style={styles.wrapper}>
-			{children}
+			<View style={{flex: 1}}>{children}</View>
 		</SafeAreaView>
 	);
 }
