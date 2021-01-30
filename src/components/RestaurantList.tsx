@@ -1,15 +1,16 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { FlatList, TouchableHighlight } from 'react-native-gesture-handler';
+import { FlatList, TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
 import theme from '../../theme';
 import MyContext from '../state/Context';
 import { Restaurant } from '../state/Restaurant.model';
 
 
-export const RestaurantList = (props: {navigation: any}) => {
+export const RestaurantList = () => {
 	const {restaurants, loadRestaurants, selectRestaurant} = useContext(MyContext);
 	if (!restaurants?.length && loadRestaurants) loadRestaurants();
-
+	const navigation = useNavigation();
   return (
     <View style={styles.wrapper}>
 				<FlatList
@@ -17,10 +18,10 @@ export const RestaurantList = (props: {navigation: any}) => {
 					contentContainerStyle={{flex:1}}
 					keyExtractor={(restaurant: {id:string}) => restaurant.id}
 					renderItem={({item}: {item: Restaurant})=> (
-							<TouchableHighlight
+							<TouchableOpacity
 								onPress={()=>{
 									selectRestaurant!(item);
-									props.navigation.navigate('ApplicationList');
+									navigation.navigate('ApplicationList');
 								}}
 								style={{
 									height: 100,
@@ -32,13 +33,13 @@ export const RestaurantList = (props: {navigation: any}) => {
 									borderStyle: 'solid',
 									borderWidth: StyleSheet.hairlineWidth,
 									margin: 2,
-									padding: 2
+									padding: 4
 								}}>
 									<>
 								<Text style={styles.text}>Restaurant: {item.label}</Text>
 								<Text style={{fontWeight: 'bold', textAlign: 'right', fontSize: 50}}>{'>'}</Text>
 								</>
-							</TouchableHighlight>
+							</TouchableOpacity>
 						)}
 					data={restaurants}
 				/>
