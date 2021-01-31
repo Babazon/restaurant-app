@@ -6,10 +6,10 @@ export type IAppState = {
 	selectedRestaurant?: Restaurant;
 	selectedApplication?: Application;
 	restaurants?: Restaurant[],
-	selectRestaurant(restaurant?: Restaurant):void;
-	selectApplication(application?:Application):void;
+	selectRestaurant(restaurant?: Restaurant): void;
+	selectApplication(application?:Application): void;
 	toggleApplicationAsViewed(application: Application): void;
-	loadRestaurants():void;
+	loadRestaurants(): void;
 }
 
 

@@ -7,13 +7,9 @@ export const ApplicationDetail = ()=>  {
 	const {selectedApplication} = useContext(MyContext);
   return (
     <View style={styles.wrapper}>
-      <Text style={styles.text}>
 				{selectedApplication != null &&
-					<>
-						<Text>Application id: {selectedApplication.id}</Text>
-					</>
+						<Text style={styles.text}>Application id: {selectedApplication.id}</Text>
 				}
-      </Text>
     </View>
   );
 }

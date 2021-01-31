@@ -7,17 +7,17 @@ import { Application } from '../state/Application.model';
 import MyContext from '../state/Context';
 
 export const ApplicationSwiper = () => {
-	let swiperRef: CardStack|null= null;
+	let swiperRef: CardStack|null= null; // Not sure about this one! useRef could be better but this library is not typed well.
 	const {selectedRestaurant, selectApplication, toggleApplicationAsViewed} = useContext(MyContext);
-	const navigation = useNavigation();
+	const navigation = useNavigation(); // useful for accessing navigation object without drilling drops
 	return (
 	<View style={styles.wrapper}>
-		{selectedRestaurant?.applications != null &&
+		{!!selectedRestaurant?.applications?.length &&
 		<>
 			<CardStack
 				style={styles.content}
 				loop
-				renderNoMoreCards={() => <Text style={{ fontWeight: '700', fontSize: 18, color: 'gray' }}>No more applications</Text>}
+				renderNoMoreCards={() => <Text style={styles.noMoreCards}>No more applications</Text>}
 				ref={swiper => { swiperRef = swiper}}
 				onSwipedRight={(_: number) => {/* Save Applicant */}}
 				onSwipedLeft={(cardIndex: number) => toggleApplicationAsViewed && toggleApplicationAsViewed(selectedRestaurant.applications[cardIndex])}
@@ -30,7 +30,7 @@ export const ApplicationSwiper = () => {
 							toggleApplicationAsViewed && toggleApplicationAsViewed(application);
 							navigation.navigate('ApplicationDetail');
 						}}>
-								<Text style={{fontSize: 300, textAlign: 'center'}}>{['👩🏻‍🍳','🧑🏾‍🍳','👨🏻‍🍳','👩🏿‍🍳','🧑‍🍳','👨🏿‍🍳','🧑🏼‍🎤','🧕🏻', '👩🏻‍🦳', '👩🏻‍🦰'][Math.floor(Math.random()*10)]}</Text>
+								<Text style={styles.avatarEmoji}>{getAvatarEmoji()}</Text>
 								<Text numberOfLines={1} lineBreakMode="tail" style={styles.label}>{application.firstname} {application.lastname}</Text>
 							</TouchableOpacity>
 					</Card>
@@ -43,6 +43,11 @@ export const ApplicationSwiper = () => {
 			/>
 		</>
 		}
+		{!selectedRestaurant?.applications?.length &&
+			<View>
+				<Text>You have no applications yet</Text>
+			</View>
+			}
 	</View>
 	)
 }
@@ -52,105 +57,126 @@ const SwipeFooter = ({left, right, back}: {left():void, right():void, back():voi
 		<View style={styles.footer}>
 				<View style={styles.buttonContainer}>
 					<TouchableOpacity style={[styles.button, styles.red]} onPress={left}>
-						<Text style={{fontSize: 50, textAlignVertical: 'center', textAlign: 'center'}}>👎</Text>
+						<Text style={styles.swipeIcon}>👎</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={[styles.button, styles.orange]} onPress={back}>
-					<Text style={{fontSize: 30, textAlignVertical: 'center', textAlign: 'center'}}>👈</Text>
+					<Text style={styles.revertIcon}>👈</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={[styles.button, styles.green]} onPress={right}>
-					<Text style={{fontSize: 50, textAlignVertical: 'center', textAlign: 'center'}}>👍</Text>
+					<Text style={styles.swipeIcon}>👍</Text>
 					</TouchableOpacity>
 				</View>
 	</View>
 	)
 }
 
+const getAvatarEmoji = () => ['👩🏻‍🍳','🧑🏾‍🍳','👨🏻‍🍳','👩🏿‍🍳','🧑‍🍳','👨🏿‍🍳','🧑🏼‍🎤','🧕🏻', '👩🏻‍🦳', '👩🏻‍🦰'][Math.floor(Math.random()*10)];
+
 
 const styles = StyleSheet.create({
-  wrapper: {
-		flex: 1,
-		backgroundColor: theme.palette.cucumber,
-		flexDirection: 'column',
-		justifyContent: 'flex-start',
-		alignItems: 'stretch'
-	},
-	container: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: '#f2f2f2',
+  avatarEmoji: {
+    fontSize: 300,
+    textAlign: 'center'
   },
-  content:{
-    flex: 5,
+  button: {
     alignItems: 'center',
+    backgroundColor: '#fff',
     justifyContent: 'center',
-  },
-  card:{
-    width: 320,
-    height: 470,
-  	backgroundColor: theme.palette.pineapple,
-    borderRadius: 5,
-    shadowColor: 'rgba(0,0,0,0.5)',
-    shadowOffset: {
-      width: 0,
-      height: 1
-    },
-		shadowOpacity:0.5,
-		flexDirection: 'column',
-		alignItems: 'center',
-		justifyContent: 'space-between',
-		paddingVertical:8
-  },
-  label: {
-    textAlign: 'center',
-    fontSize: 32,
-    fontFamily: 'System',
-    color: '#ffffff',
-    backgroundColor: 'transparent',
-  },
-  footer:{
-    flex:1,
-    justifyContent:'center',
-    alignItems:'center'
-  },
-  buttonContainer:{
-    width:220,
-    flexDirection:'row',
-    justifyContent: 'space-between',
-  },
-  button:{
     shadowColor: 'rgba(0,0,0,0.3)',
     shadowOffset: {
-      width: 0,
-      height: 1
+      height: 1,
+      width: 0
     },
-    shadowOpacity:0.5,
-    backgroundColor:'#fff',
-    alignItems:'center',
-    justifyContent:'center',
-    zIndex: 0,
+    shadowOpacity: 0.5,
+    zIndex: 0
   },
-  orange:{
-    width:55,
-    height:55,
-    borderWidth:6,
-    borderColor:'rgb(246,190,66)',
-    borderRadius:55,
-    marginTop:-15
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 220
   },
-  green:{
-    width:75,
-    height:75,
-    backgroundColor:'#fff',
-    borderRadius:75,
-    borderWidth:6,
-    borderColor:'#01df8a',
+  card: {
+    alignItems: 'center',
+    backgroundColor: theme.palette.pineapple,
+    borderRadius: 5,
+    flexDirection: 'column',
+    height: 470,
+    justifyContent: 'space-between',
+    paddingVertical: 8,
+    shadowColor: 'rgba(0,0,0,0.5)',
+    shadowOffset: {
+      height: 1,
+      width: 0
+    },
+    shadowOpacity: 0.5,
+    width: 320
   },
-  red:{
-    width:75,
-    height:75,
-    backgroundColor:'#fff',
-    borderRadius:75,
-    borderWidth:6,
-    borderColor:'#fd267d',
+  container: {
+    backgroundColor: '#f2f2f2',
+    flex: 1,
+    flexDirection: 'column'
+  },
+  content: {
+    alignItems: 'center',
+    flex: 5,
+    justifyContent: 'center'
+  },
+  footer: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center'
+  },
+  green: {
+    backgroundColor: '#fff',
+    borderColor: '#01df8a',
+    borderRadius: 75,
+    borderWidth: 6,
+    height: 75,
+    width: 75
+  },
+  label: {
+    backgroundColor: 'transparent',
+    color: '#ffffff',
+    fontFamily: 'System',
+    fontSize: 32,
+    textAlign: 'center'
+  },
+  noMoreCards: {
+    color: 'gray',
+    fontSize: 18,
+    fontWeight: '700'
+  },
+  orange: {
+    borderColor: 'rgb(246,190,66)',
+    borderRadius: 55,
+    borderWidth: 6,
+    height: 55,
+    marginTop: -15,
+    width: 55
+  },
+  red: {
+    backgroundColor: '#fff',
+    borderColor: '#fd267d',
+    borderRadius: 75,
+    borderWidth: 6,
+    height: 75,
+    width: 75
+  },
+  revertIcon: {
+    fontSize: 30,
+    textAlign: 'center',
+    textAlignVertical: 'center'
+  },
+  swipeIcon: {
+    fontSize: 50,
+    textAlign: 'center',
+    textAlignVertical: 'center'
+  },
+  wrapper: {
+    alignItems: 'stretch',
+    backgroundColor: theme.palette.cucumber,
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start'
   }
 });

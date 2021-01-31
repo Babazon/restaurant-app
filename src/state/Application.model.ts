@@ -15,7 +15,7 @@ export class FormResponse {
 	form_id: string
 	token: string
 	landed_at: string
-	submitted_at:string
+	submitted_at: string
 	definition: FormDefinition
 	answers: FormAnswer[]
 }
@@ -40,7 +40,7 @@ export class FormDefinition {
 export class FormField {
 	allow_multiple_selections: boolean
 	allow_other_choice: boolean
-	choices: { 	id: string, label: string }[]
+	choices: { id: string, label: string }[]
 	id: string
 	properties: any // No example to type
 	ref: string

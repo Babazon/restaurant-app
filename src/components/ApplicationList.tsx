@@ -11,7 +11,7 @@ export const ApplicationList = ()=>  {
 	const navigation = useNavigation();
   return (
     <View style={styles.wrapper}>
-				{selectedRestaurant?.applications != null &&
+				{!!selectedRestaurant?.applications?.length &&
 					<FlatList
 						keyExtractor={(restaurant: {id:string}) => restaurant.id}
 						renderItem={({item}: {item:Application})=> (
@@ -32,34 +32,43 @@ export const ApplicationList = ()=>  {
 						data={selectedRestaurant.applications}
 					/>
 				}
+				{!selectedRestaurant?.applications.length &&
+					<View>
+						<Text>No applications.. </Text>
+					</View>
+				}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-		flex:1,
-		backgroundColor: theme.palette.cucumber
+  annanasText: {
+    color: theme.palette.pineapple
   },
-  text: {
+  cucumberText: {
+    color: theme.palette.cucumber
+	},
+  listItem: {
+    alignItems: 'center',
+    borderColor: 'gray',
+    borderStyle: 'solid',
+    borderWidth: StyleSheet.hairlineWidth,
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
+    height: 100,
+    justifyContent: 'space-between',
+    margin: 2,
+    padding: 4
+  },
+  myPineappleIsBiggerThanYours: {
+    fontSize: 80
+	},
+	text: {
     ...theme.typography.body,
     textAlign: 'left',
   },
-  annanasText: {color: theme.palette.pineapple},
-  cucumberText: {color: theme.palette.cucumber},
-  myPineappleIsBiggerThanYours: {
-    fontSize: 80,
-	},
-	listItem: {
-		height: 100,
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'center',
-		borderColor: 'gray',
-		borderStyle: 'solid',
-		borderWidth: StyleSheet.hairlineWidth,
-		margin: 2,
-		padding: 4,
-		flexWrap: 'nowrap',
-	}
+  wrapper: {
+    backgroundColor: theme.palette.cucumber,
+    flex: 1
+  }
 });

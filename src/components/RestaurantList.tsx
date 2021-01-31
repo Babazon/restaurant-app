@@ -14,7 +14,7 @@ export const RestaurantList = () => {
   return (
     <View style={styles.wrapper}>
 				<FlatList
-					style={{flex: 1 }}
+					style={styles.flatlist}
 					contentContainerStyle={{flex:1}}
 					keyExtractor={(restaurant: {id:string}) => restaurant.id}
 					renderItem={({item}: {item: Restaurant})=> (
@@ -34,13 +34,33 @@ export const RestaurantList = () => {
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-		flex:1,
-		justifyContent: 'flex-start',
-		alignItems: 'stretch',
-		backgroundColor: theme.palette.cucumber
+  annanasText: {
+    color: theme.palette.pineapple,
+    textAlign: 'center'
   },
-  text: {
+  cucumberText: {
+    color: theme.palette.cucumber
+  },
+  flatlist: {
+    flex: 1
+  },
+  listItem: {
+    alignItems: 'center',
+    backgroundColor: theme.palette.pineapple,
+    borderColor: 'gray',
+    borderStyle: 'solid',
+    borderWidth: StyleSheet.hairlineWidth,
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
+    height: 100,
+    justifyContent: 'center',
+    margin: 2,
+    padding: 4
+  },
+  myPineappleIsBiggerThanYours: {
+    fontSize: 80
+	},
+	text: {
     ...theme.typography.body,
 		textAlign: 'center',
 		color: 'white',
@@ -48,22 +68,10 @@ const styles = StyleSheet.create({
 		fontSize: 50,
 		marginHorizontal: 8
   },
-  annanasText: {color: theme.palette.pineapple, textAlign: 'center'},
-  cucumberText: {color: theme.palette.cucumber},
-  myPineappleIsBiggerThanYours: {
-    fontSize: 80,
-	},
-	listItem: {
-		height: 100,
-		flexWrap: 'nowrap',
-		flexDirection: 'row',
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: theme.palette.pineapple,
-		borderColor: 'gray',
-		borderStyle: 'solid',
-		borderWidth: StyleSheet.hairlineWidth,
-		margin: 2,
-		padding: 4
-	}
+  wrapper: {
+    alignItems: 'stretch',
+    backgroundColor: theme.palette.cucumber,
+    flex: 1,
+    justifyContent: 'flex-start'
+  }
 });
