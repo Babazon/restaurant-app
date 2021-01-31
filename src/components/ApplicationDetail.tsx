@@ -1,18 +1,32 @@
-import React, { useContext } from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { connect, ConnectedProps } from 'react-redux';
 import theme from '../../theme';
-import MyContext from '../state/Context';
+import { RootState } from '../state/Redux';
 
-export const ApplicationDetail = ()=>  {
-	const {selectedApplication} = useContext(MyContext);
+const mapState = (state: RootState)=> ({
+  selectedApplication: state?.selectedApplication
+})
+
+
+const connector = connect(mapState)
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+
+
+export const ApplicationDetail = (props: PropsFromRedux)=>  {
   return (
     <View style={styles.wrapper}>
-				{selectedApplication != null &&
-						<Text style={styles.text}>Application id: {selectedApplication.id}</Text>
+				{props.selectedApplication != null &&
+						<Text style={styles.text}>Application id: {props.selectedApplication.id}</Text>
 				}
     </View>
   );
 }
+
+
+export default connector(ApplicationDetail)
+
 
 const styles = StyleSheet.create({
   wrapper: {

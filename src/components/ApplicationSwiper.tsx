@@ -1,18 +1,35 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useContext } from 'react';
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import CardStack, { Card } from 'react-native-card-stack-swiper';
+import { connect, ConnectedProps } from 'react-redux';
 import theme from '../../theme';
 import { Application } from '../state/Application.model';
-import MyContext from '../state/Context';
+import { RootState, SELECT_APPLICATION, TOGGLE_APPLICATION_VIEWED } from '../state/Redux';
 
-export const ApplicationSwiper = () => {
+
+const mapState = (state: RootState) => ({
+  selectedRestaurant: state?.selectedRestaurant
+})
+
+const mapDispatch = {
+	toggleApplicationAsViewed: (application: Application) => ({ type: TOGGLE_APPLICATION_VIEWED, application }),
+	selectApplication: (application: Application) => ({type: SELECT_APPLICATION, application})
+}
+
+const connector = connect(mapState, mapDispatch)
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+
+
+export const ApplicationSwiper = (props: PropsFromRedux) => {
+	console.log('props swo', props);
+
 	let swiperRef: CardStack|null= null; // Not sure about this one! useRef could be better but this library is not typed well.
-	const {selectedRestaurant, selectApplication, toggleApplicationAsViewed} = useContext(MyContext);
 	const navigation = useNavigation(); // useful for accessing navigation object without drilling drops
 	return (
 	<View style={styles.wrapper}>
-		{!!selectedRestaurant?.applications?.length &&
+		{!!props.selectedRestaurant?.applications?.length &&
 		<>
 			<CardStack
 				style={styles.content}
@@ -20,12 +37,12 @@ export const ApplicationSwiper = () => {
 				ref={swiper => { swiperRef = swiper}}
 				onSwipedRight={(_: number) => {/* Save Applicant */}}
 			>
-				{selectedRestaurant.applications.map((application: Application, _: number)=> (
+				{props.selectedRestaurant?.applications.map((application: Application, _: number)=> (
 					<Card style={styles.card} key={application.id}>
 					<TouchableOpacity
 						onPress={()=>{
-							selectApplication && selectApplication(application);
-							toggleApplicationAsViewed && toggleApplicationAsViewed(application);
+							props.selectApplication(application);
+							props.toggleApplicationAsViewed(application);
 							navigation.navigate('ApplicationDetail');
 						}}>
 								<Text style={styles.avatarEmoji}>{getAvatarEmoji()}</Text>
@@ -42,7 +59,7 @@ export const ApplicationSwiper = () => {
 			<View style={{flex: 1}}/>
 		</>
 		}
-		{!selectedRestaurant?.applications?.length &&
+		{!props.selectedRestaurant?.applications?.length &&
 			<View>
 				<Text>You have no applications yet</Text>
 			</View>
@@ -50,6 +67,8 @@ export const ApplicationSwiper = () => {
 	</View>
 	)
 }
+
+
 
 const SwipeFooter = ({left, right, back}: {left():void, right():void, back():void}) => {
 	return (
@@ -70,6 +89,8 @@ const SwipeFooter = ({left, right, back}: {left():void, right():void, back():voi
 }
 
 const getAvatarEmoji = () => ['👩🏻‍🍳','🧑🏾‍🍳','👨🏻‍🍳','👩🏿‍🍳','🧑‍🍳','👨🏿‍🍳','🧑🏼‍🎤','🧕🏻', '👩🏻‍🦳', '👩🏻‍🦰'][Math.floor(Math.random()*10)];
+
+export default connector(ApplicationSwiper)
 
 
 const styles = StyleSheet.create({

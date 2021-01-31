@@ -1,15 +1,35 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useContext } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
+import { connect, ConnectedProps } from 'react-redux';
 import theme from '../../theme';
-import MyContext from '../state/Context';
+import { Application } from '../state/Application.model';
+import { LOAD_RESTAURANTS, RootState, SELECT_RESTAURANT } from '../state/Redux';
 import { Restaurant } from '../state/Restaurant.model';
+import applications from '../../dummyData/applications.json';
 
 
-export const RestaurantList = () => {
-	const {restaurants, loadRestaurants, selectRestaurant} = useContext(MyContext);
-	if (!restaurants?.length && loadRestaurants) loadRestaurants();
+const mapState = (state: RootState) => ({
+  restaurants: state.restaurants ?? []
+})
+
+const mapDispatch = {
+	loadRestaurants: (applications: Application[]) => ({ type: LOAD_RESTAURANTS, applications  }),
+	selectRestaurant: (restaurant: Restaurant) => ({type: SELECT_RESTAURANT, restaurant})
+}
+
+const connector = connect(
+  mapState,
+  mapDispatch
+)
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+
+ const RestaurantList = (props: PropsFromRedux) => {
+	console.log(props);
+	if(!props.restaurants?.length) props.loadRestaurants(applications as Application[]);
 	const navigation = useNavigation();
   return (
     <View style={styles.wrapper}>
@@ -20,18 +40,22 @@ export const RestaurantList = () => {
 					renderItem={({item}: {item: Restaurant})=> (
 							<TouchableOpacity
 								onPress={()=>{
-									selectRestaurant!(item);
+									props.selectRestaurant(item);
 									navigation.navigate('ApplicationList');
 								}}
 								style={styles.listItem}>
 								<Text numberOfLines={1} style={styles.text}>{item.label}</Text>
 							</TouchableOpacity>
 						)}
-					data={restaurants}
+					data={props.restaurants}
 				/>
     </View>
   );
 }
+
+export default connector(RestaurantList)
+
+
 
 const styles = StyleSheet.create({
   annanasText: {

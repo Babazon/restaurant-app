@@ -1,9 +1,9 @@
 import { Restaurant } from "./Restaurant.model";
 
-export class Application {
+export interface Application {
 	firstname?: string
 	lastname?: string
-	viewed: boolean = false
+	viewed: boolean;
 	id: string
 	event_id: string
 	event_type: string // enum,
@@ -11,7 +11,7 @@ export class Application {
 	form_response: FormResponse
 }
 
-export class FormResponse {
+export interface FormResponse {
 	form_id: string
 	token: string
 	landed_at: string
@@ -21,7 +21,7 @@ export class FormResponse {
 }
 
 
-export class FormAnswer {
+export interface FormAnswer {
 	field: {
 		id: string,
 		ref: string, // should be typed
@@ -31,13 +31,13 @@ export class FormAnswer {
 	type: string
 }
 
-export class FormDefinition {
+export interface FormDefinition {
 	id: string
 	title: string
 	fields: FormField[]
 }
 
-export class FormField {
+export interface FormField {
 	allow_multiple_selections: boolean
 	allow_other_choice: boolean
 	choices: { id: string, label: string }[]

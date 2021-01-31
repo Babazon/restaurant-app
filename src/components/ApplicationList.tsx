@@ -1,25 +1,40 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useContext } from 'react';
+import React from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { connect, ConnectedProps } from 'react-redux';
 import theme from '../../theme';
 import { Application } from '../state/Application.model';
-import MyContext from '../state/Context';
+import { RootState, SELECT_APPLICATION, TOGGLE_APPLICATION_VIEWED } from '../state/Redux';
 
-export const ApplicationList = ()=>  {
-	const {selectedRestaurant, selectApplication, toggleApplicationAsViewed} = useContext(MyContext);
+
+const mapState = (state: RootState): {applications: Application[]} => ({
+  applications: state?.selectedRestaurant?.applications ?? []
+})
+
+const mapDispatch = {
+	toggleApplicationAsViewed: (application: Application) => ({ type: TOGGLE_APPLICATION_VIEWED, application }),
+	selectApplication: (application: Application) => ({type: SELECT_APPLICATION, application})
+}
+
+const connector = connect(mapState, mapDispatch)
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+
+
+export const ApplicationList = (props: PropsFromRedux)=>  {
 	const navigation = useNavigation();
   return (
     <View style={styles.wrapper}>
-				{!!selectedRestaurant?.applications?.length &&
+				{!!props.applications?.length &&
 					<FlatList
 						keyExtractor={(restaurant: {id:string}) => restaurant.id}
 						renderItem={({item}: {item:Application})=> (
 						<TouchableOpacity
 							style={StyleSheet.flatten([styles.listItem, {	backgroundColor: item.viewed ? 'lightgray': 'green',}])}
 							onPress={()=>{
-								selectApplication && selectApplication(item);
-								toggleApplicationAsViewed && toggleApplicationAsViewed(item);
+								props.selectApplication(item);
+								props.toggleApplicationAsViewed(item);
 								navigation.navigate('ApplicationDetail');
 							}}
 						>
@@ -29,10 +44,10 @@ export const ApplicationList = ()=>  {
 							</>
 						</TouchableOpacity>
 						)}
-						data={selectedRestaurant.applications}
+						data={props.applications}
 					/>
 				}
-				{!selectedRestaurant?.applications.length &&
+				{!props.applications.length &&
 					<View>
 						<Text>No applications.. </Text>
 					</View>
@@ -40,6 +55,9 @@ export const ApplicationList = ()=>  {
     </View>
   );
 }
+
+export default connector(ApplicationList)
+
 
 const styles = StyleSheet.create({
   annanasText: {
