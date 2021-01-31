@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import CardStack, { Card } from 'react-native-card-stack-swiper';
 import theme from '../../theme';
 import { Application } from '../state/Application.model';
@@ -16,11 +16,9 @@ export const ApplicationSwiper = () => {
 		<>
 			<CardStack
 				style={styles.content}
-				loop
-				renderNoMoreCards={() => <Text style={styles.noMoreCards}>No more applications</Text>}
+				renderNoMoreCards={() => <Card style={StyleSheet.flatten([styles.card, {backgroundColor: 'transparent'}])}><Text style={styles.noMoreCards}>No more applications... Check later for more.</Text></Card>}
 				ref={swiper => { swiperRef = swiper}}
 				onSwipedRight={(_: number) => {/* Save Applicant */}}
-				onSwipedLeft={(cardIndex: number) => toggleApplicationAsViewed && toggleApplicationAsViewed(selectedRestaurant.applications[cardIndex])}
 			>
 				{selectedRestaurant.applications.map((application: Application, _: number)=> (
 					<Card style={styles.card} key={application.id}>
@@ -41,6 +39,7 @@ export const ApplicationSwiper = () => {
 				right={()=>swiperRef && swiperRef.swipeRight()}
 				back={()=>swiperRef && swiperRef.goBackFromLeft()}
 			/>
+			<View style={{flex: 1}}/>
 		</>
 		}
 		{!selectedRestaurant?.applications?.length &&
@@ -100,7 +99,6 @@ const styles = StyleSheet.create({
     backgroundColor: theme.palette.pineapple,
     borderRadius: 5,
     flexDirection: 'column',
-    height: 470,
     justifyContent: 'space-between',
     paddingVertical: 8,
     shadowColor: 'rgba(0,0,0,0.5)',
@@ -109,7 +107,7 @@ const styles = StyleSheet.create({
       width: 0
     },
     shadowOpacity: 0.5,
-    width: 320
+		margin: 48
   },
   container: {
     backgroundColor: '#f2f2f2',
@@ -142,8 +140,9 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   noMoreCards: {
-    color: 'gray',
-    fontSize: 18,
+		textAlign: 'center',
+    color: 'white',
+    fontSize: 24,
     fontWeight: '700'
   },
   orange: {
@@ -173,10 +172,10 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center'
   },
   wrapper: {
-    alignItems: 'stretch',
+		alignItems: 'stretch',
     backgroundColor: theme.palette.cucumber,
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'flex-start'
+    justifyContent: 'center'
   }
 });

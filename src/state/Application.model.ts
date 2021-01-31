@@ -24,7 +24,7 @@ export class FormResponse {
 export class FormAnswer {
 	field: {
 		id: string,
-		ref: string,
+		ref: string, // should be typed
 		type: string
   }
 	text: string
