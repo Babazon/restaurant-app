@@ -5,7 +5,7 @@ import CardStack, { Card } from 'react-native-card-stack-swiper';
 import { connect, ConnectedProps } from 'react-redux';
 import theme from '../../theme';
 import { Application } from '../state/Application.model';
-import { RootState, SELECT_APPLICATION, TOGGLE_APPLICATION_VIEWED } from '../state/Redux';
+import { RootState, SELECT_APPLICATION } from '../state/Redux';
 
 
 const mapState = (state: RootState) => ({
@@ -13,7 +13,6 @@ const mapState = (state: RootState) => ({
 })
 
 const mapDispatch = {
-	toggleApplicationAsViewed: (application: Application) => ({ type: TOGGLE_APPLICATION_VIEWED, application }),
 	selectApplication: (application: Application) => ({type: SELECT_APPLICATION, application})
 }
 
@@ -42,7 +41,6 @@ export const ApplicationSwiper = (props: PropsFromRedux) => {
 					<TouchableOpacity
 						onPress={()=>{
 							props.selectApplication(application);
-							props.toggleApplicationAsViewed(application);
 							navigation.navigate('ApplicationDetail');
 						}}>
 								<Text style={styles.avatarEmoji}>{getAvatarEmoji()}</Text>

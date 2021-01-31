@@ -5,7 +5,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { connect, ConnectedProps } from 'react-redux';
 import theme from '../../theme';
 import { Application } from '../state/Application.model';
-import { RootState, SELECT_APPLICATION, TOGGLE_APPLICATION_VIEWED } from '../state/Redux';
+import { RootState, SELECT_APPLICATION } from '../state/Redux';
 
 
 const mapState = (state: RootState): {applications: Application[]} => ({
@@ -13,7 +13,6 @@ const mapState = (state: RootState): {applications: Application[]} => ({
 })
 
 const mapDispatch = {
-	toggleApplicationAsViewed: (application: Application) => ({ type: TOGGLE_APPLICATION_VIEWED, application }),
 	selectApplication: (application: Application) => ({type: SELECT_APPLICATION, application})
 }
 
@@ -34,7 +33,6 @@ export const ApplicationList = (props: PropsFromRedux)=>  {
 							style={StyleSheet.flatten([styles.listItem, {	backgroundColor: item.viewed ? 'lightgray': 'green',}])}
 							onPress={()=>{
 								props.selectApplication(item);
-								props.toggleApplicationAsViewed(item);
 								navigation.navigate('ApplicationDetail');
 							}}
 						>

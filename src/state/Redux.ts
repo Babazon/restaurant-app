@@ -1,7 +1,6 @@
 //types
 
 import { configureStore } from '@reduxjs/toolkit';
-import { findAndToggleApplicationInRestaurants } from '../util/findAndToggleApplicationInRestaurant';
 import { reduceApplicationsIntoRestaurants } from '../util/reduceApplicationsIntoRestaurants';
 import { Application } from "./Application.model";
 import { Restaurant } from "./Restaurant.model";
@@ -11,7 +10,6 @@ import { Restaurant } from "./Restaurant.model";
 export const SELECT_RESTAURANT = 'SELECT_RESTAURANT'
 export const SELECT_APPLICATION = 'SELECT_APPLICATION'
 export const LOAD_RESTAURANTS = 'LOAD_RESTAURANTS'
-export const TOGGLE_APPLICATION_VIEWED = 'TOGGLE_APPLICATION_VIEWED'
 
 
 interface SelectRestaurantAction {
@@ -29,16 +27,9 @@ interface LoadRestaurantsAction {
 	applications: Application[]
 }
 
-interface ToggleApplicationViewedAction {
-	type: typeof TOGGLE_APPLICATION_VIEWED,
-	application: Application
-}
-
 export type ActionTypes = SelectRestaurantAction |
 													SelectApplicationAction |
-													LoadRestaurantsAction |
-													ToggleApplicationViewedAction;
-
+													LoadRestaurantsAction;
 
 // action creators
 
@@ -63,12 +54,6 @@ export function loadRestaurants(applications: Application[]): ActionTypes {
   }
 }
 
-export function toggleApplicationViewed(application: Application): ActionTypes {
-  return {
-		type: TOGGLE_APPLICATION_VIEWED,
-		application
-  }
-}
 
 export type RootState = {
 	selectedRestaurant?: Restaurant;
@@ -86,13 +71,11 @@ const initialAppState: RootState = {
 const reducer = (state: RootState = initialAppState, action: ActionTypes): RootState =>{
   switch (action.type) {
     case SELECT_RESTAURANT:
-      return {...state, selectedRestaurant: action.restaurant};
+      return {...state, selectedRestaurant: { ...action.restaurant}};
     case SELECT_APPLICATION:
-			return {...state, selectedApplication: action.application};
+			return {...state, selectedApplication: { ...action.application}};
 		case LOAD_RESTAURANTS:
 			return {...state, restaurants: reduceApplicationsIntoRestaurants(action.applications)};
-		case TOGGLE_APPLICATION_VIEWED:
-			return {...state, restaurants: findAndToggleApplicationInRestaurants(state.restaurants, action.application)};
     default:
       return state
   }
