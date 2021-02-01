@@ -26,7 +26,6 @@ const connector = connect(mapState, mapDispatch);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 
 const RestaurantList = (props: PropsFromRedux) => {
-  console.log(props);
   if (!props.restaurants?.length) {
     props.loadRestaurants(applications as Application[]);
   }
