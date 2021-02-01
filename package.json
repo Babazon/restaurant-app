@@ -1,5 +1,5 @@
 {
-  "name": "wANNAJobMobile",
+  "name": "bas-anna",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -52,7 +52,13 @@
       "jsx",
       "json",
       "node"
-    ]
+		],
+		"setupFiles": [
+			"./node_modules/react-native-gesture-handler/jestSetup.js"
+ 		],
+ 		"transformIgnorePatterns": [
+			"/node_modules/(?!native-base)/"
+ 		]
   },
   "husky": {
     "hooks": {
