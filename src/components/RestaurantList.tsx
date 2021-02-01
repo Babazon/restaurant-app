@@ -5,7 +5,7 @@ import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 import {connect, ConnectedProps} from 'react-redux';
 import theme from '../../theme';
 import {Application} from '../state/Application.model';
-import {loadRestaurants, RootState, SELECT_RESTAURANT} from '../state/Redux';
+import {loadRestaurants, RootState, selectRestaurant} from '../state/Redux';
 import {Restaurant} from '../state/Restaurant.model';
 import applications from '../../dummyData/applications.json';
 
@@ -15,10 +15,7 @@ const mapState = (state: RootState) => ({
 
 const mapDispatch = {
   loadRestaurants,
-  selectRestaurant: (restaurant: Restaurant) => ({
-    type: SELECT_RESTAURANT,
-    restaurant,
-  }),
+  selectRestaurant,
 };
 
 const connector = connect(mapState, mapDispatch);
@@ -27,7 +24,9 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 const RestaurantList = (props: PropsFromRedux) => {
   if (!props.restaurants?.length) {
+    console.log('before', props.restaurants);
     props.loadRestaurants(applications as Application[]);
+    console.log('after', props.restaurants);
   }
   const navigation = useNavigation();
   return (
