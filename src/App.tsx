@@ -42,18 +42,15 @@ class App extends React.Component {
 							<RestaurantStack.Screen name="RestaurantList"
 							 component={RestaurantList}
 							 options={{
-								title: 'Restaurants',
 							 ...sharedHeaderOptions}} />
 							<RestaurantStack.Screen name="ApplicationDetail"
 							component={ApplicationDetail}
 							options={{
-								 title: `${store.getState().selectedApplication?.firstname} ${store.getState().selectedApplication?.lastname}`,
-								...sharedHeaderOptions
+								...sharedHeaderOptions,
 								}}/>
 							<RestaurantStack.Screen name="ApplicationList"
 							component={ApplicationSwiper}
 							options={{
-								 title: `${store.getState().selectedRestaurant?.label} Applicants`,
 								...sharedHeaderOptions,
 								gestureEnabled: false
 							}}/>
@@ -65,6 +62,7 @@ class App extends React.Component {
 };
 
 const sharedHeaderOptions : Partial<StackNavigationOptions>= {
+	headerBackTitle: 'Back',
 	headerStyle: {
 		backgroundColor: theme.palette.pineapple,
 	},
