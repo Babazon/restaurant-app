@@ -1,6 +1,6 @@
 import { Application } from "./Application.model"
 
-export interface Restaurant {
+export class Restaurant {
 	id: string
 	label: string
 	applications: Application[]

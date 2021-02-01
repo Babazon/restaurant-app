@@ -3,7 +3,6 @@ import { Restaurant } from "./Restaurant.model";
 export interface Application {
 	firstname?: string
 	lastname?: string
-	viewed: boolean;
 	id: string
 	event_id: string
 	event_type: string // enum,

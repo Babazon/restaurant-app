@@ -3,11 +3,11 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import { connect, ConnectedProps } from 'react-redux';
+import applications from '../../dummyData/applications.json';
 import theme from '../../theme';
 import { Application } from '../state/Application.model';
-import { LOAD_RESTAURANTS, RootState, SELECT_RESTAURANT } from '../state/Redux';
+import { loadRestaurants, RootState, selectRestaurant } from '../state/Redux';
 import { Restaurant } from '../state/Restaurant.model';
-import applications from '../../dummyData/applications.json';
 
 
 const mapState = (state: RootState) => ({
@@ -15,8 +15,8 @@ const mapState = (state: RootState) => ({
 })
 
 const mapDispatch = {
-	loadRestaurants: (applications: Application[]) => ({ type: LOAD_RESTAURANTS, applications  }),
-	selectRestaurant: (restaurant: Restaurant) => ({type: SELECT_RESTAURANT, restaurant})
+	loadRestaurants,
+	selectRestaurant
 }
 
 const connector = connect(
@@ -28,7 +28,6 @@ type PropsFromRedux = ConnectedProps<typeof connector>
 
 
  const RestaurantList = (props: PropsFromRedux) => {
-	console.log(props);
 	if(!props.restaurants?.length) props.loadRestaurants(applications as Application[]);
 	const navigation = useNavigation();
   return (

@@ -5,7 +5,7 @@ import CardStack, { Card } from 'react-native-card-stack-swiper';
 import { connect, ConnectedProps } from 'react-redux';
 import theme from '../../theme';
 import { Application } from '../state/Application.model';
-import { RootState, SELECT_APPLICATION } from '../state/Redux';
+import { RootState, selectApplication} from '../state/Redux';
 
 
 const mapState = (state: RootState) => ({
@@ -13,17 +13,13 @@ const mapState = (state: RootState) => ({
 })
 
 const mapDispatch = {
-	selectApplication: (application: Application) => ({type: SELECT_APPLICATION, application})
+	selectApplication,
 }
 
 const connector = connect(mapState, mapDispatch)
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-
-
-export const ApplicationSwiper = (props: PropsFromRedux) => {
-	console.log('props swo', props);
-
+const ApplicationSwiper = (props: PropsFromRedux) => {
 	let swiperRef: CardStack|null= null; // Not sure about this one! useRef could be better but this library is not typed well.
 	const navigation = useNavigation(); // useful for accessing navigation object without drilling drops
 	return (

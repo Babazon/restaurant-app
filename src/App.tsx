@@ -47,13 +47,13 @@ class App extends React.Component {
 							<RestaurantStack.Screen name="ApplicationDetail"
 							component={ApplicationDetail}
 							options={{
-								// title: `${this.state?.selectedApplication?.firstname} ${this.state?.selectedApplication?.lastname}`,
+								 title: `${store.getState().selectedApplication?.firstname} ${store.getState().selectedApplication?.lastname}`,
 								...sharedHeaderOptions
 								}}/>
 							<RestaurantStack.Screen name="ApplicationList"
 							component={ApplicationSwiper}
 							options={{
-								// title: `${this.state?.selectedRestaurant?.label} Applicants`,
+								 title: `${store.getState().selectedRestaurant?.label} Applicants`,
 								...sharedHeaderOptions,
 								gestureEnabled: false
 							}}/>

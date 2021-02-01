@@ -5,7 +5,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { connect, ConnectedProps } from 'react-redux';
 import theme from '../../theme';
 import { Application } from '../state/Application.model';
-import { RootState, SELECT_APPLICATION } from '../state/Redux';
+import { RootState, selectApplication } from '../state/Redux';
 
 
 const mapState = (state: RootState): {applications: Application[]} => ({
@@ -13,7 +13,7 @@ const mapState = (state: RootState): {applications: Application[]} => ({
 })
 
 const mapDispatch = {
-	selectApplication: (application: Application) => ({type: SELECT_APPLICATION, application})
+	selectApplication,
 }
 
 const connector = connect(mapState, mapDispatch)
@@ -21,7 +21,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>
 
 
 
-export const ApplicationList = (props: PropsFromRedux)=>  {
+const ApplicationList = (props: PropsFromRedux)=>  {
 	const navigation = useNavigation();
   return (
     <View style={styles.wrapper}>

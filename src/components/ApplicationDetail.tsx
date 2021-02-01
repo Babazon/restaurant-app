@@ -14,7 +14,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>
 
 
 
-export const ApplicationDetail = (props: PropsFromRedux)=>  {
+const ApplicationDetail = (props: PropsFromRedux)=>  {
   return (
     <View style={styles.wrapper}>
 				{props.selectedApplication != null &&
