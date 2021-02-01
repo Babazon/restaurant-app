@@ -1,14 +1,17 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {
+  createStackNavigator,
+  StackNavigationOptions,
+} from '@react-navigation/stack';
 import React from 'react';
-import { StatusBar } from 'react-native';
+import {StatusBar} from 'react-native';
 import 'react-native-gesture-handler';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 import theme from '../theme';
 import ApplicationDetail from './components/ApplicationDetail';
 import ApplicationSwiper from './components/ApplicationSwiper';
 import RestaurantList from './components/RestaurantList';
-import { store } from './state/Redux';
+import {store} from './state/Redux';
 
 /*
 Todo List
@@ -30,46 +33,50 @@ Todo List
 const RestaurantStack = createStackNavigator();
 
 class App extends React.Component {
-
-	render(){
-		return (
-			<Provider
-				store={store}
-			>
-				<NavigationContainer>
-						<StatusBar barStyle="dark-content" />
-						<RestaurantStack.Navigator initialRouteName="RestaurantList">
-							<RestaurantStack.Screen name="RestaurantList"
-							 component={RestaurantList}
-							 options={{
-							 ...sharedHeaderOptions}} />
-							<RestaurantStack.Screen name="ApplicationDetail"
-							component={ApplicationDetail}
-							options={{
-								...sharedHeaderOptions,
-								}}/>
-							<RestaurantStack.Screen name="ApplicationList"
-							component={ApplicationSwiper}
-							options={{
-								...sharedHeaderOptions,
-								gestureEnabled: false
-							}}/>
-						</RestaurantStack.Navigator>
-				</NavigationContainer>
-			</Provider>
-  	);
-	}
-};
-
-const sharedHeaderOptions : Partial<StackNavigationOptions>= {
-	headerBackTitle: 'Back',
-	headerStyle: {
-		backgroundColor: theme.palette.pineapple,
-	},
-	headerTintColor: '#fff',
-	headerTitleStyle: {
-		fontWeight: 'bold',
-	}
+  render() {
+    return (
+      <Provider store={store}>
+        <NavigationContainer>
+          <StatusBar barStyle="dark-content" />
+          <RestaurantStack.Navigator initialRouteName="RestaurantList">
+            <RestaurantStack.Screen
+              name="RestaurantList"
+              component={RestaurantList}
+              options={{
+                ...sharedHeaderOptions,
+              }}
+            />
+            <RestaurantStack.Screen
+              name="ApplicationDetail"
+              component={ApplicationDetail}
+              options={{
+                ...sharedHeaderOptions,
+              }}
+            />
+            <RestaurantStack.Screen
+              name="ApplicationList"
+              component={ApplicationSwiper}
+              options={{
+                ...sharedHeaderOptions,
+                gestureEnabled: false,
+              }}
+            />
+          </RestaurantStack.Navigator>
+        </NavigationContainer>
+      </Provider>
+    );
+  }
 }
+
+const sharedHeaderOptions: Partial<StackNavigationOptions> = {
+  headerBackTitle: 'Back',
+  headerStyle: {
+    backgroundColor: theme.palette.pineapple,
+  },
+  headerTintColor: '#fff',
+  headerTitleStyle: {
+    fontWeight: 'bold',
+  },
+};
 
 export default App;

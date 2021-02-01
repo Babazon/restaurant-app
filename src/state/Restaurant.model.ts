@@ -1,7 +1,7 @@
-import { Application } from "./Application.model"
+import {Application} from './Application.model';
 
 export class Restaurant {
-	id: string
-	label: string
-	applications: Application[]
+  id: string;
+  label: string;
+  applications: Application[];
 }
