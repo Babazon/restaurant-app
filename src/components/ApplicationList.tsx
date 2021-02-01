@@ -30,7 +30,7 @@ const ApplicationList = (props: PropsFromRedux)=>  {
 						keyExtractor={(restaurant: {id:string}) => restaurant.id}
 						renderItem={({item}: {item:Application})=> (
 						<TouchableOpacity
-							style={StyleSheet.flatten([styles.listItem, {	backgroundColor: item.viewed ? 'lightgray': 'green',}])}
+							style={StyleSheet.flatten([styles.listItem])}
 							onPress={()=>{
 								props.selectApplication(item);
 								navigation.navigate('ApplicationDetail');
