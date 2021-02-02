@@ -6,6 +6,7 @@ import {connect, ConnectedProps} from 'react-redux';
 import theme from '../../theme';
 import {Application} from '../state/Application.model';
 import {RootState, selectApplication} from '../state/Redux';
+import {getAvatarEmoji} from '../util/getAvatarEmoji';
 
 const mapState = (state: RootState) => ({
   selectedRestaurant: state?.selectedRestaurant,
@@ -106,11 +107,6 @@ const SwipeFooter = ({
     </View>
   );
 };
-
-const getAvatarEmoji = () =>
-  ['👩🏻‍🍳', '🧑🏾‍🍳', '👨🏻‍🍳', '👩🏿‍🍳', '🧑‍🍳', '👨🏿‍🍳', '🧑🏼‍🎤', '🧕🏻', '👩🏻‍🦳', '👩🏻‍🦰'][
-    Math.floor(Math.random() * 10)
-  ];
 
 export default connector(ApplicationSwiper);
 
